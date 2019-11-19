@@ -1,0 +1,16 @@
+create a table with articles and whose paid for them
+
+backend only sends request to the smart contract for if that person has paid
+    more sc calls than creating a proof of payment and validating it but also easier
+
+
+calls to backend need a signature along with the public key to verify that the call is
+coming from the person who paid
+    verify the signature matches the public key
+    check that the public key is listed in the sc as having paid
+
+
+
+Content in the database should be indexable by their postid
+
+// create fork of orbit db doc store that authenticates requests for files

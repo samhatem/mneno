@@ -1,0 +1,3 @@
+[submodule "orbit-db-docstore"]
+	path = orbit-db-docstore
+	url = git@github.com:samhatem/orbit-db-docstore
