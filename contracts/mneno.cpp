@@ -20,7 +20,7 @@ public:
     auto post_index = _posts.get_index<name("byskey")>();
     uint128_t skey = static_cast<uint128_t>(author.value) << 64 | timestamp;
     auto post = post_index.find(skey);
-    eosio_assert(post = post_index.end(), "Post with timestamp and author already exists.");
+    eosio_assert(post == post_index.end(), "Post with timestamp and author already exists.");
 
     _posts.emplace(get_self(), [&](auto &p) {
       p.postid = _posts.available_primary_key();
@@ -34,17 +34,42 @@ public:
 
   // get price of an article
   static asset getprice(const uint_t postid) {
+    auto post = _posts.get(postid);
+    eosio::check(post.postid == postid, "Invalid Article ID")
+    return postid.price;
+    //in theory this works
+  }
+
+  ACTION pay(name from, asset quantity, const uint_t postid) {
+    auto post = _posts.get(postid);
+    eosio::check(post.postid == postid, "Invalid Article ID")
+    if(quantity > post.price) { //does this work?
+      _payments.emplace(get_self(), [&](auto &payment) {
+        payment.paymentid = _payments.available_primary_key();
+        payment.postid = post.postid;
+        payment.payer = from;
+      });
+      //need to add stuff for transfering the money to the the author account
+    }
 
   }
 
-  ACTION pay(name from, asset quantity, const uint_t postid) {}
-
 
   // function to confirm/deny whether a public key has paid
-  static bool checkpayment(name from, uint_t postid) {}
+  static bool checkpayment(name from, uint_t postid) {
+
+
+  }
 
   // function to change price of articles
-  ACTION changePrice() {}
+  ACTION changePrice(uint_t postid, uint_t newprice) {
+    auto itr = _posts.find(postid);
+    eosio::check(post.postid != _posts.end(), "Invalid Article ID")
+    _posts.modify(*itr, get_self(),[&](auto &p) {
+      p.price = newprice;
+    }
+    eosio::check(itr->price == newprice, "Price not modified");
+  }
 
 private:
 
@@ -72,13 +97,14 @@ private:
   {
     name payer;
     uint64_t postid;
-    uint64_t primary_key() const { return postid; }
-    uint64_t by_postid() const { return postid; }
+    uint64_t paymentid;
+    uint64_t primary_key() const { return paymentid; }
+    uint64_t by_paymentid() const { return paymentid; } //does this need to be changed?
     uint64_t by_payer() const { return payer.value; }
   }
 
   typdef eosio::multi_index<name("paymentstruct"), payment_struct,
-    indexed_by < name("bypostid"), const_mem_fun < payment_struct, uint64_t, &payment_struct::by_postid>>,
+    indexed_by < name("bypaymentid"), const_mem_fun < payment_struct, uint64_t, &payment_struct::by_paymentid>>,
     indexed_by < name("bypayer"), const_mem_fun < payment_struct, uint64_t, &payment_struct::by_payer>>
   >
   payment_struct;
