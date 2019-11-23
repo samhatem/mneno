@@ -1,1 +1,5 @@
 node_modules/*
+js/node_modules/*
+app/node_modules/*
+js/.next/*
+app/.next/*
