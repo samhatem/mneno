@@ -15,7 +15,7 @@ class DocumentIndex {
     const reducer = (handled, item, idx) => {
       if (handled[item.payload.key] !== true) {
         handled[item.payload.key] = true
-        if(item.payload.op === 'PUT') {
+        if (item.payload.op === 'PUT') {
           this._index[item.payload.key] = item
         } else if (item.payload.op === 'DEL') {
           delete this._index[item.payload.key]

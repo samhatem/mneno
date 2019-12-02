@@ -1,8 +1,6 @@
-node_modules/*
-app/node_modules/*
 app/.next/*
 .idea
 .next
 coverage
-node_modules
 .DS_Store
+app/yarn.lock

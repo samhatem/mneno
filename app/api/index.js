@@ -1,41 +1,62 @@
-import IPFS from 'ipfs'
 import OrbitDB from 'orbit-db'
 import DocumentStore from './orbitDB/DocumentStore'
+import IpfsClient from 'ipfs-http-client'
 
+/**
+  post = {
+    fileHash: ...,
+    meta: ...,
+    title: ...,
+    body: ....,
+    author: ....,
+  }
 
-class API {
+*/
+
+export default class API {
   constructor () {
-    const ipfs = new IPFS()
+    this.ipfs = new IpfsClient('http://localhost', '5001')
 
-    ipfs.on('ready', async () => {
-      const orbitdb = await OrbitDB.createInstance(ipfs)
-      const id = orbitdb.identity
-      // DocumentStore created with info from orbitdb
-      // need identity, address and options
-      const store = new DocumentStore(id, ipfs, 'mneno-db', {})
-      store.events.on('write', orbitdb._onWrite.bind(orbitdb))
-    })
+    this.setOrbitDb()
+  }
+
+  async setOrbitDb () {
+    this.orbitdb = await OrbitDB.createInstance(this.ipfs)
+    const id = this.orbitdb.identity
+
+    this.store = new DocumentStore(id, this.ipfs, 'mneno-db', {})
+    this.store.events.on('write', this.orbitdb._onWrite.bind(this.orbitdb))
+
+    this.store.put({ _id: 'hello world', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' })
+      .then(() => this.store.put({ _id: 'sup world', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' }))
+      .then(() => this.store.put({ _id: 'hello world2', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' }))
+      .then(() => this.store.put({ _id: 'hello world3', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' }))
+
+    const result = this.store.iterator({ limit: -1 }).collect()
+    console.log(JSON.stringify(result, null, 2))
   }
 
   getPosts () {
-
+    return this.store.query((doc) => doc)
   }
 
   getPost (slug) {
-    // get posts from orbitdb
+    return this.store.get(slug)
   }
 
-  createPost (info) {
-    // upload content to orbit db
+  createPost (data) {
+    // upload the post data to ipfs
+    this.uploadPostData(data)
+
+    // upload the hash of the post to orbitdb
+    this.uploadPost(data)
   }
 
   uploadPostData (data) {
-
+    this.store.put(data)
   }
 
   uploadPost (file) {
-
+    this.store.put(file)
   }
 }
-
-export default new API()

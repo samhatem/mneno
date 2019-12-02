@@ -3,7 +3,6 @@
 const Store = require('orbit-db-store')
 const DocumentIndex = require('./DocumentIndex')
 const pMap = require('p-map')
-const Readable = require('readable-stream')
 
 const replaceAll = (str, search, replacement) => str.toString().split(search).join(replacement)
 
@@ -29,7 +28,7 @@ class DocumentStore extends Store {
     }
     const mapper = e => this._index.get(e)
     const filter = e => caseSensitive
-      ? e.indexOf(key) !== -1 
+      ? e.indexOf(key) !== -1
       : search(e)
 
     return Object.keys(this._index._index)
@@ -65,8 +64,7 @@ class DocumentStore extends Store {
   }
 
   put (doc) {
-    if (!doc[this.options.indexBy])
-      throw new Error(`The provided document doesn't contain field '${this.options.indexBy}'`)
+    if (!doc[this.options.indexBy]) throw new Error(`The provided document doesn't contain field '${this.options.indexBy}'`)
 
     return this._addOperation({
       op: 'PUT',
@@ -76,8 +74,7 @@ class DocumentStore extends Store {
   }
 
   del (key) {
-    if (!this._index.get(key))
-      throw new Error(`No entry with key '${key}' in the database`)
+    if (!this._index.get(key)) throw new Error(`No entry with key '${key}' in the database`)
 
     return this._addOperation({
       op: 'DEL',

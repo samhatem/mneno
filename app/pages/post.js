@@ -1,8 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
-import Layout from 'layouts/Main'
-import { getPost } from 'api/posts'
+import Layout from '../layouts/Main'
 
+/**
 const Wrapper = styled.div`
   padding: 3rem;
   max-width: 750px;
@@ -28,22 +27,20 @@ const Wrapper = styled.div`
     color: #666;
     font-family: "PT Sans", sans-serif;
   }
-`
+*/
 
 const PostPage = ({ post }) =>
   <Layout>
-    <Wrapper>
-      <h1>
-        {post.title}
-      </h1>
-      <p>
-        {post.body}
-      </p>
-    </Wrapper>
+    <h1>
+      {post.title}
+    </h1>
+    <p>
+      {post.body}
+    </p>
   </Layout>
 
-PostPage.getInitialProps = async ({ query }) => {
-  const res = await getPost(query.slug)
+PostPage.getInitialProps = async ({ query, api }) => {
+  const res = await api.getPost(query.slug)
   const json = await res.json()
   return { post: json[0] }
 }
