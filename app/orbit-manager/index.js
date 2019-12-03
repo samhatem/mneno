@@ -13,7 +13,7 @@ import IpfsClient from 'ipfs-http-client'
 
 */
 
-export default class API {
+class API {
   constructor () {
     this.ipfs = new IpfsClient('http://localhost', '5001')
 
@@ -60,3 +60,5 @@ export default class API {
     this.store.put(file)
   }
 }
+
+export default new API()

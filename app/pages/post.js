@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../layouts/Main'
+import API from '../orbit-manager'
 
-/**
 const Wrapper = styled.div`
   padding: 3rem;
   max-width: 750px;
@@ -26,8 +26,7 @@ const Wrapper = styled.div`
     line-height: 28px;
     color: #666;
     font-family: "PT Sans", sans-serif;
-  }
-*/
+  }`
 
 const PostPage = ({ post }) =>
   <Layout>
@@ -40,9 +39,9 @@ const PostPage = ({ post }) =>
   </Layout>
 
 PostPage.getInitialProps = async ({ query, api }) => {
-  const res = await api.getPost(query.slug)
-  const json = await res.json()
-  return { post: json[0] }
+  //const res = await api.getPost(query.slug)
+  //const json = await res.json()
+  return { post: {} }
 }
 
 export default PostPage
