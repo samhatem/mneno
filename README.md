@@ -25,6 +25,9 @@ npm dev
 ![Mneno web app](https://github.com/samhatem/mneno/blob/master/public/Mneno-app.png)
 
 
+Note: The current version of the repository is not integrated with the Mneno smart contract yet.
+
+
 ## Smart contracts
 
 https://jungle.eosq.app/account/iwrtjlgcfi3d/tables?scope=iwrtjlgcfi3d&tableName=posttable
