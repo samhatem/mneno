@@ -1,19 +1,19 @@
 import OrbitDB from 'orbit-db'
 import IpfsClient from 'ipfs-http-client'
-import ScatterJS from '@scatterjs/core'
-import ScatterEOS from '@scatterjs/eosjs'
-import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig'
-import { Api, JsonRpc } from 'eosjs'
+// import ScatterJS from '@scatterjs/core'
+// import ScatterEOS from '@scatterjs/eosjs'
+// import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig'
+// import { Api, JsonRpc } from 'eosjs'
 
-ScatterJS.plugins(new ScatterEOS())
+// ScatterJS.plugins(new ScatterEOS())
 
 // EOS6quun7cECbHHVZBrxraNXAaqsVGmnxk5gtvNf2hhrk3LJTw8tY
-const privateKey = '6quun7cECbHHVZBrxraNXAaqsVGmnxk5gtvNf2hhrk3LJTw8tY'
-const chainId = 'eos:chain:e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
+// const privateKey = '6quun7cECbHHVZBrxraNXAaqsVGmnxk5gtvNf2hhrk3LJTw8tY'
+// const chainId = 'eos:chain:e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 
-const signatureProvider = new JsSignatureProvider([privateKey])
-const rpc = new JsonRpc('https://api.jungle.alohaeos.com')
-const api = new Api({ rpc, signatureProvider, chainId })
+// const signatureProvider = new JsSignatureProvider([privateKey])
+// const rpc = new JsonRpc('https://api.jungle.alohaeos.com')
+// const api = new Api({ rpc, signatureProvider, chainId })
 
 class API {
   constructor () {
@@ -30,7 +30,6 @@ class API {
       .then(() => this.store.put({ _id: 'sup world', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' }))
       .then(() => this.store.put({ _id: 'hello world2', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' }))
       .then(() => this.store.put({ _id: 'hello world3', slug: 'dfaslkjfdlakjf', posttitle: 'title title title', body: 'body body body' }))
-      .catch(err => console.error('ERROR PUTTING OR QUERYING'))
   }
 
   getPosts () {

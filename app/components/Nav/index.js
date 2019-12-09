@@ -13,17 +13,12 @@ const Wrapper = styled.nav`
   }
 `
 
-const isAuthor = process.env.AUTHOR
-console.log(process.env)
-
 const Nav = () => (
   <Wrapper>
     <Link href='/'><a>Home</a></Link> |
     <Link href='/about'><a>About</a></Link> |
     <Link href='/contact'><a>Contact</a></Link> |
-    {
-      isAuthor ? <Link href='/create'><a>Create</a></Link> : null
-    }
+    <Link href='/create'><a>Create</a></Link>
   </Wrapper>
 )
 
