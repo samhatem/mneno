@@ -22,7 +22,7 @@ npm install
 npm dev
 ```
 
-![Mneno web app](./public/mneno-app.png)
+![Mneno web app](https://github.com/samhatem/mneno/blob/master/public/Mneno-app.png)
 
 
 ## Smart contracts
