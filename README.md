@@ -5,12 +5,14 @@ Decentralized content monetization
 
 clone the repository
 
-`cd mneno/app
+```
+cd mneno/app
 
 npm install
 
-npm start`
+npm dev
+```
 
 ## Smart contracts
 
-[Smart contract on eosq blockexplorer] (https://jungle.eosq.app/account/iwrtjlgcfi3d/tables?scope=iwrtjlgcfi3d&tableName=posttable)
+https://jungle.eosq.app/account/iwrtjlgcfi3d/tables?scope=iwrtjlgcfi3d&tableName=posttable
