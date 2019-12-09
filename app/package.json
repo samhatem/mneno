@@ -6,15 +6,17 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_PATH=. NODE_ENV=production node server.js",
-    "lint": "standard 'api/*' 'components/*' 'layouts/*' 'pages/*' 'styles/*' 'routes.js' 'server.js'",
-    "precommit": "lint-staged"
+    "lint": "standard 'api/*' 'components/*' 'layouts/*' 'pages/*' 'styles/*' 'routes.js' 'server.js'"
   },
   "dependencies": {
     "@material-ui/core": "^4.7.1",
     "@material-ui/styles": "^4.7.1",
+    "@scatterjs/core": "^2.7.48",
+    "@scatterjs/eosjs": "^1.5.31",
     "babel-plugin-module-resolver": "^3.2.0",
     "core-js": "^3.4.5",
     "draft-js": "^0.11.3",
+    "eosjs": "^20.0.0",
     "express": "^4.17.1",
     "husky": "^3.1.0",
     "ipfs-http-client": "^40.0.1",
@@ -22,6 +24,7 @@
     "next": "^9.1.4",
     "next-routes": "^1.4.2",
     "orbit-db": "^0.22.1",
+    "orbit-db-docstore": "^1.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "standard": "^14.3.1",
@@ -43,7 +46,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.7.4",
     "babel-eslint": "^10.0.3",
+    "dotenv-flow": "^3.1.0",
     "eslint": "^6.7.2",
     "yarn-upgrade-all": "^0.5.2"
   }

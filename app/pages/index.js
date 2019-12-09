@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../layouts/Main'
-import API from '../orbit-manager'
+import api from '../orbit-manager'
 import Post from '../components/Post'
 
 const IndexPage = ({ posts }) =>
@@ -13,8 +13,7 @@ const IndexPage = ({ posts }) =>
   </Layout>
 
 IndexPage.getInitialProps = async ({ req }) => {
-  //const api = new API()
-  const posts = {} //api.getPosts()
+  const posts = {} // api.getPosts()
   return { posts }
 }
 

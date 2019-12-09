@@ -39,8 +39,8 @@ const PostPage = ({ post }) =>
   </Layout>
 
 PostPage.getInitialProps = async ({ query, api }) => {
-  //const res = await api.getPost(query.slug)
-  //const json = await res.json()
+  // const res = await api.getPost(query.slug)
+  // const json = await res.json()
   return { post: {} }
 }
 

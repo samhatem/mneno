@@ -4,3 +4,4 @@ app/.next/*
 coverage
 .DS_Store
 app/yarn.lock
+*/nodeos.log

@@ -1,8 +1,9 @@
-import { Editor, EditorState } from 'draft-js'
+import { Editor, EditorState, convertToRaw } from 'draft-js'
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-// import API from '../orbit-manager'
+
+import api from '../../orbit-manager'
 
 export default class MyEditor extends React.Component {
   constructor (props) {
@@ -26,13 +27,12 @@ export default class MyEditor extends React.Component {
     this.handleUpload = () => {
       const { editorState, title, author, cost } = this.state
       const intCost = parseInt(cost)
-      console.log(editorState, 'THE EDITOR STATE')
-      console.log(title, 'THE TITLE')
-      console.log(author, 'THE AUTHor')
-      console.log(intCost, 'THE COST')
-    //  api.createPost({
-    //    content: editorState
-    //  })
+      const curContent = editorState.getCurrentContent()
+      api.createPost(JSON.stringify(convertToRaw(curContent)), {
+        title,
+        author,
+        cost: intCost
+      })
     }
     this.handleTitle = (e) => {
       this.setState({ title: e.target.value })
@@ -52,7 +52,7 @@ export default class MyEditor extends React.Component {
       <div style={styles.container}>
         <TextField style={styles.textBox} label='title' value={this.state.title} onChange={this.handleTitle} />
         <TextField style={styles.textBox} label='author' value={this.state.author} onChange={this.handleAuthor} />
-        <TextField style={styles.textBox} label='cost' value={this.state.cost} onChange={this.handleCost} />
+        <TextField style={styles.textBox} label='cost (EOS)' value={this.state.cost} onChange={this.handleCost} />
         <div style={styles.editor} onClick={this.handleFocus}>
           <Editor
             ref={this.setEditor}
@@ -69,7 +69,7 @@ export default class MyEditor extends React.Component {
 const styles = {
   editor: {
     border: '1px solid gray',
-    minHeight: '6em'
+    minHeight: '14em'
   },
   container: {
     margin: '50px'
